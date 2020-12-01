@@ -18,12 +18,12 @@ func cleanInput(filename string) []int64 {
 	return ci
 }
 
-// Part1 find the two entries that sum to 2020
+// Part1 find the two entries that sum to 2020, return their product
 func Part1(input string) (int64, error) {
-	cleanInput := cleanInput(input)
+	testData := cleanInput(input)
 
-	for i, val1 := range cleanInput {
-		for _, val2 := range cleanInput[i:] {
+	for i, val1 := range testData {
+		for _, val2 := range testData[i:] {
 			if val1+val2 == 2020 {
 				return val1 * val2, nil
 			}
@@ -32,13 +32,13 @@ func Part1(input string) (int64, error) {
 	return 0, errors.New("could not find two numbers totalling 2020")
 }
 
-// Part2 find the two entries that sum to 2020
+// Part2 find the two entries that sum to 2020, return their product
 func Part2(input string) (int64, error) {
-	cleanInput := cleanInput(input)
+	testData := cleanInput(input)
 
-	for i, val1 := range cleanInput {
-		for j, val2 := range cleanInput[i:] {
-			for _, val3 := range cleanInput[j:] {
+	for i, val1 := range testData {
+		for j, val2 := range testData[i:] {
+			for _, val3 := range testData[j:] {
 				if val1+val2+val3 == 2020 {
 					return val1 * val2 * val3, nil
 				}

@@ -21,7 +21,10 @@ var testData02 = []testCase{
 
 func TestPart1(t *testing.T) {
 	for _, val := range testData01 {
-		answer, _ := Part1(val.fileName)
+		answer, err := Part1(val.fileName)
+		if err != nil {
+			t.Fatalf("%s", err)
+		}
 		if answer != val.want {
 			t.Fatalf("wanted: %v got: %v", val.want, answer)
 		}
@@ -30,7 +33,10 @@ func TestPart1(t *testing.T) {
 
 func TestPart2(t *testing.T) {
 	for _, val := range testData02 {
-		answer, _ := Part2(val.fileName)
+		answer, err := Part2(val.fileName)
+		if err != nil {
+			t.Fatalf("%s", err)
+		}
 		if answer != val.want {
 			t.Fatalf("wanted: %v got: %v", val.want, answer)
 		}
