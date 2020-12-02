@@ -6,7 +6,7 @@ import (
 
 type testCase struct {
 	fileName string
-	want     int64
+	want     int
 }
 
 var testData01 = []testCase{

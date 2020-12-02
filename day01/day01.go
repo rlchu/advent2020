@@ -1,26 +1,13 @@
 package day01
 
 import (
+	"advent2020/helpers"
 	"errors"
-	"io/ioutil"
-	"strconv"
-	"strings"
 )
 
-// cleanInput reads txt file input based on name passed in and converts from []byte -> []string -> []int64
-func cleanInput(filename string) []int64 {
-	body, _ := ioutil.ReadFile(filename)
-	input := strings.Split(string(body), "\n")
-	ci := make([]int64, len(input))
-	for i, val := range input {
-		ci[i], _ = strconv.ParseInt(val, 10, 0)
-	}
-	return ci
-}
-
 // Part1 find the two entries that sum to 2020, return their product
-func Part1(input string) (int64, error) {
-	testData := cleanInput(input)
+func Part1(input string) (int, error) {
+	testData := helpers.CleanInput(input)
 
 	for i, val1 := range testData {
 		for _, val2 := range testData[i:] {
@@ -29,12 +16,12 @@ func Part1(input string) (int64, error) {
 			}
 		}
 	}
-	return 0, errors.New("could not find two numbers totalling 2020")
+	return 0, errors.New("could not find two numbers totaling 2020")
 }
 
-// Part2 find the two entries that sum to 2020, return their product
-func Part2(input string) (int64, error) {
-	testData := cleanInput(input)
+// Part2 find the three entries that sum to 2020, return their product
+func Part2(input string) (int, error) {
+	testData := helpers.CleanInput(input)
 
 	for i, val1 := range testData {
 		for j, val2 := range testData[i:] {
@@ -46,5 +33,5 @@ func Part2(input string) (int64, error) {
 
 		}
 	}
-	return 0, errors.New("could not find three numbers totalling 2020")
+	return 0, errors.New("could not find three numbers totaling 2020")
 }
