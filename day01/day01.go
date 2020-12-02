@@ -7,7 +7,10 @@ import (
 
 // Part1 find the two entries that sum to 2020, return their product
 func Part1(input string) (int, error) {
-	testData := helpers.CleanInput(input)
+	testData, err := helpers.CleanInput(input)
+	if err != nil {
+		return 0, err
+	}
 
 	for i, val1 := range testData {
 		for _, val2 := range testData[i:] {
@@ -21,8 +24,10 @@ func Part1(input string) (int, error) {
 
 // Part2 find the three entries that sum to 2020, return their product
 func Part2(input string) (int, error) {
-	testData := helpers.CleanInput(input)
-
+	testData, err := helpers.CleanInput(input)
+	if err != nil {
+		return 0, err
+	}
 	for i, val1 := range testData {
 		for j, val2 := range testData[i:] {
 			for _, val3 := range testData[j:] {
