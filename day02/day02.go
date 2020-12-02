@@ -65,7 +65,7 @@ func main2() {
 	fmt.Println(finalCount)
 }
 
-func main() {
+func main3() {
 	passwordLine, _ := parseInput("day02_input.txt")
 	// passwordLine, _ := parseInput("day02_example.txt")
 	for k, line := range passwordLine {
@@ -84,4 +84,17 @@ func main() {
 		}
 	}
 	fmt.Println(finalCount)
+}
+
+func main() {
+	passwordLine, _ := parseInput("day02_input.txt")
+	// passwordLine, _ := parseInput("day02_example.txt")
+	count := 0
+	for _, line := range passwordLine {
+		if (string(line.password[line.low-1]) == line.letter) != (string(line.password[line.high-1]) == line.letter) {
+			count++
+		}
+	}
+
+	fmt.Println(count)
 }
