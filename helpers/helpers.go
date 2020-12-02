@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// CleanInput reads txt file input based on name passed in and converts from []byte -> []string -> []int64
+// CleanInput reads txt file input based on name passed in and converts from []byte -> []int
 func CleanInput(filename string) ([]int, error) {
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
