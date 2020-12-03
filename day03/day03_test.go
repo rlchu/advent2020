@@ -1,4 +1,4 @@
-package day02
+package day03
 
 import (
 	"testing"
@@ -10,13 +10,13 @@ type testCase struct {
 }
 
 var testData01 = []testCase{
-	{"day02_example.txt", 2},
-	{"day02_input.txt", 434},
+	{"day03_example.txt", 7},
+	// {"day03_input.txt", 434},
 }
 
 var testData02 = []testCase{
-	{"day02_example.txt", 1},
-	{"day02_input.txt", 509},
+	{"day03_example.txt", 1},
+	// {"day03_input.txt", 509},
 }
 
 func TestPart1(t *testing.T) {

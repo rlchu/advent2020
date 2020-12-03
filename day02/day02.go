@@ -1,7 +1,6 @@
-package main
+package day02
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -35,39 +34,12 @@ func parseInput(filename string) ([]passwordLine, error) {
 	return ci, nil
 }
 
-func main2() {
-	passwordLine, _ := parseInput("day02_input.txt")
-	for k, line := range passwordLine {
-		passwordLine[k].count = 0
-		for i, passwordLetter := range line.password {
-			contLetterCount := 0
-			if line.letter == string(passwordLetter) {
-				for _, nextLetter := range []byte(line.password)[i:] {
-					if string(nextLetter) == line.letter {
-						contLetterCount++
-						continue
-					} else {
-						break
-					}
-				}
-			}
-			if contLetterCount >= passwordLine[k].count {
-				passwordLine[k].count = contLetterCount
-			}
-		}
+// Part1 returns # of valid passwords
+func Part1(filename string) (int, error) {
+	passwordLine, err := parseInput(filename)
+	if err != nil {
+		return 0, err
 	}
-	finalCount := 0
-	for _, line := range passwordLine {
-		if line.low <= line.count && line.count <= line.high {
-			finalCount++
-		}
-	}
-	fmt.Println(finalCount)
-}
-
-func main3() {
-	passwordLine, _ := parseInput("day02_input.txt")
-	// passwordLine, _ := parseInput("day02_example.txt")
 	for k, line := range passwordLine {
 		passwordLine[k].count = 0
 		for _, passwordLetter := range line.password {
@@ -83,18 +55,20 @@ func main3() {
 			finalCount++
 		}
 	}
-	fmt.Println(finalCount)
+	return finalCount, nil
 }
 
-func main() {
-	passwordLine, _ := parseInput("day02_input.txt")
-	// passwordLine, _ := parseInput("day02_example.txt")
+// Part2 returns # of valid passwords based on positions rule
+func Part2(filename string) (int, error) {
+	passwordLine, err := parseInput(filename)
+	if err != nil {
+		return 0, err
+	}
 	count := 0
 	for _, line := range passwordLine {
 		if (string(line.password[line.low-1]) == line.letter) != (string(line.password[line.high-1]) == line.letter) {
 			count++
 		}
 	}
-
-	fmt.Println(count)
+	return count, nil
 }
