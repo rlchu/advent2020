@@ -15,8 +15,8 @@ var testData01 = []testCase{
 }
 
 var testData02 = []testCase{
-	{"day03_example.txt", 1},
-	{"day03_input.txt", 509},
+	{"day03_example.txt", 336},
+	{"day03_input.txt", 6050183040},
 }
 
 func TestPart1(t *testing.T) {
@@ -31,14 +31,14 @@ func TestPart1(t *testing.T) {
 	}
 }
 
-// func TestPart2(t *testing.T) {
-// 	for _, val := range testData02 {
-// 		answer, err := Part2(val.fileName)
-// 		if err != nil {
-// 			t.Fatalf("%s", err)
-// 		}
-// 		if answer != val.want {
-// 			t.Fatalf("wanted: %v got: %v", val.want, answer)
-// 		}
-// 	}
-// }
+func TestPart2(t *testing.T) {
+	for _, val := range testData02 {
+		answer, err := Part2(val.fileName)
+		if err != nil {
+			t.Fatalf("%s", err)
+		}
+		if answer != val.want {
+			t.Fatalf("wanted: %v got: %v", val.want, answer)
+		}
+	}
+}
