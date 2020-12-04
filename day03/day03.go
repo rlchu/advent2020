@@ -40,16 +40,22 @@ func (sg stringGrid) countTrees(right, down int) int {
 	return count
 }
 
-// Part1 returns # of trees encountered
+// Part1 returns # of trees encountered across a single slope (1,3)
 func Part1(filename string) (int, error) {
 	stringGrid, err := parseInput(filename)
+	if err != nil {
+		return 0, err
+	}
 	count := stringGrid.countTrees(1, 3)
-	return count, err
+	return count, nil
 }
 
-// Part2 returns # of valid passwords based on positions rule
+// Part2 returns product trees encountered across multiple slopes
 func Part2(filename string) (int, error) {
 	stringGrid, err := parseInput(filename)
+	if err != nil {
+		return 0, err
+	}
 	count := 1
 	count *= stringGrid.countTrees(1, 1)
 	count *= stringGrid.countTrees(1, 3)
@@ -57,5 +63,5 @@ func Part2(filename string) (int, error) {
 	count *= stringGrid.countTrees(1, 7)
 	count *= stringGrid.countTrees(2, 1)
 
-	return count, err
+	return count, nil
 }
