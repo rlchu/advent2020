@@ -56,8 +56,7 @@ func Part2(filename string) (int, error) {
 	if err != nil {
 		return 0, err
 	}
-	count := 1
-	count *= stringGrid.countTrees(1, 1)
+	count := stringGrid.countTrees(1, 1)
 	count *= stringGrid.countTrees(1, 3)
 	count *= stringGrid.countTrees(1, 5)
 	count *= stringGrid.countTrees(1, 7)
