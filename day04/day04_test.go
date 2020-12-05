@@ -16,7 +16,7 @@ var testData01 = []testCase{
 
 var testData02 = []testCase{
 	{"day04_example.txt", 2},
-	{"day04_input.txt", 6050183040},
+	{"day04_input.txt", 175},
 }
 
 func TestPart1(t *testing.T) {
