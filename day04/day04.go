@@ -1,9 +1,9 @@
 package day04
 
 import (
-	"fmt"
 	"io/ioutil"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -21,18 +21,31 @@ func checkForValidEntries(passport string) bool {
 	if checkForRequiredFields(passport) == false {
 		return false
 	}
+
 	byr := regexp.MustCompile(`byr:\w{4}`)
 	e := byr.FindStringSubmatch(passport)
-	// if strings.Split(e[0], ":")[1] > 2002 || strings.Split(e[0], ":")[1] < 1920 {
-	// 	return false
-	// }
-	fmt.Println(strings.Split(e[0], ":")[1])
+	byrYear, _ := strconv.Atoi(strings.Split(e[0], ":")[1])
 
-	// for _, field := range requiredFields {
-	// 	if strings.Contains(passport, field) == false {
-	// 		return false
-	// 	}
-	// }
+	if byrYear > 2002 || byrYear < 1920 {
+		return false
+	}
+
+	iyr := regexp.MustCompile(`iyr:\w{4}`)
+	e = iyr.FindStringSubmatch(passport)
+	iyrYear, _ := strconv.Atoi(strings.Split(e[0], ":")[1])
+
+	if iyrYear > 2020 || iyrYear < 2010 {
+		return false
+	}
+
+	eyr := regexp.MustCompile(`eyr:\w{4}`)
+	e = eyr.FindStringSubmatch(passport)
+	eyrYear, _ := strconv.Atoi(strings.Split(e[0], ":")[1])
+
+	if eyrYear > 2030 || eyrYear < 2020 {
+		return false
+	}
+
 	return true
 }
 
