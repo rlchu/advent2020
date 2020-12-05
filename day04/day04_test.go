@@ -15,7 +15,7 @@ var testData01 = []testCase{
 }
 
 var testData02 = []testCase{
-	{"day04_example.txt", 336},
+	{"day04_example.txt", 2},
 	{"day04_input.txt", 6050183040},
 }
 

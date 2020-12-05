@@ -7,6 +7,14 @@ import (
 	"strings"
 )
 
+var byr = regexp.MustCompile(`byr:\d{4}\b`)
+var iyr = regexp.MustCompile(`iyr:\d{4}\b`)
+var eyr = regexp.MustCompile(`eyr:\d{4}\b`)
+var hgt = regexp.MustCompile(`hgt:(\d+)(cm|in)`)
+var hcl = regexp.MustCompile(`hcl:#[0-9a-f]{6}\b`)
+var ecl = regexp.MustCompile(`ecl:amb|ecl:blu|ecl:brn|ecl:gry|ecl:grn|ecl:hzl|ecl:oth`)
+var pid = regexp.MustCompile(`pid:\d{9}\b`)
+
 func checkForRequiredFields(passport string) bool {
 	requiredFields := []string{"ecl", "pid", "eyr", "hcl", "byr", "iyr", "hgt"}
 	for _, field := range requiredFields {
@@ -17,32 +25,64 @@ func checkForRequiredFields(passport string) bool {
 	return true
 }
 
+func yearConstraintsCheck(re *regexp.Regexp, passport string, min, max int) bool {
+	submatch := re.FindStringSubmatch(passport)
+	year, _ := strconv.Atoi(strings.Split(submatch[0], ":")[1])
+
+	if year <= max && year >= min {
+		return false
+	}
+	return true
+}
+
+func checkHeight(passport string) bool {
+	if !hgt.MatchString(passport) {
+		return true
+	}
+	submatch := hgt.FindStringSubmatch(passport)
+	height := strings.Split(submatch[0], ":")[1]
+	re := regexp.MustCompile(`(\d+)([c|i])`)
+	match := re.FindStringSubmatch(height)
+	magnitude, unit := match[1], match[2]
+	m, _ := strconv.Atoi(magnitude)
+	if unit == "c" && (m <= 193 && m >= 150) {
+		return false
+	} else if unit == "i" && (m <= 76 && m >= 59) {
+		return false
+	}
+	return true
+}
+
 func checkForValidEntries(passport string) bool {
 	if checkForRequiredFields(passport) == false {
 		return false
 	}
 
-	byr := regexp.MustCompile(`byr:\w{4}`)
-	e := byr.FindStringSubmatch(passport)
-	byrYear, _ := strconv.Atoi(strings.Split(e[0], ":")[1])
-
-	if byrYear > 2002 || byrYear < 1920 {
+	if yearConstraintsCheck(byr, passport, 1920, 2002) {
 		return false
 	}
 
-	iyr := regexp.MustCompile(`iyr:\w{4}`)
-	e = iyr.FindStringSubmatch(passport)
-	iyrYear, _ := strconv.Atoi(strings.Split(e[0], ":")[1])
-
-	if iyrYear > 2020 || iyrYear < 2010 {
+	if yearConstraintsCheck(iyr, passport, 2010, 2020) {
 		return false
 	}
 
-	eyr := regexp.MustCompile(`eyr:\w{4}`)
-	e = eyr.FindStringSubmatch(passport)
-	eyrYear, _ := strconv.Atoi(strings.Split(e[0], ":")[1])
+	if yearConstraintsCheck(eyr, passport, 2020, 2030) {
+		return false
+	}
 
-	if eyrYear > 2030 || eyrYear < 2020 {
+	if checkHeight(passport) {
+		return false
+	}
+
+	if !hcl.MatchString(passport) {
+		return false
+	}
+
+	if !ecl.MatchString(passport) {
+		return false
+	}
+
+	if !pid.MatchString(passport) {
 		return false
 	}
 
@@ -73,5 +113,5 @@ func Part2(filename string) (int, error) {
 		}
 	}
 
-	return 0, nil
+	return validCount, nil
 }
