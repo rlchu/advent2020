@@ -1,1 +1,3 @@
 advent2020 in GOLANG!
+
+can run all tests across all days with go test ./...
