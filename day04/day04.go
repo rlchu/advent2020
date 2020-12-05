@@ -5,42 +5,34 @@ import (
 	"strings"
 )
 
-// parseInput ..
-func parseInput(filename string) (stringGrid, error) {
-	body, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return stringGrid{}, err
+func checkForRequired(passport string) bool {
+	requiredFields := []string{"ecl", "pid", "eyr", "hcl", "byr", "iyr", "hgt"}
+	for _, field := range requiredFields {
+		if strings.Contains(passport, field) == false {
+			return false
+		}
 	}
-	input := strings.Split(string(body), "\n")
-	sg := make(stringGrid, len(input))
-
-	for i, val := range input {
-		sg[i] = strings.Split(val, "")
-	}
-	return sg, nil
+	return true
 }
 
 // Part1 ..
 func Part1(filename string) (int, error) {
-	stringGrid, err := parseInput(filename)
-	if err != nil {
-		return 0, err
+	body, _ := ioutil.ReadFile(filename)
+	input := strings.Split(string(body), "\n\n")
+	validCount := 0
+	for _, passport := range input {
+		if checkForRequired(passport) {
+			validCount++
+		}
 	}
-	count := stringGrid.countTrees(1, 3)
-	return count, nil
+	return validCount, nil
 }
 
 // Part2 ...
-func Part2(filename string) (int, error) {
-	stringGrid, err := parseInput(filename)
-	if err != nil {
-		return 0, err
-	}
-	count := stringGrid.countTrees(1, 1)
-	count *= stringGrid.countTrees(1, 3)
-	count *= stringGrid.countTrees(1, 5)
-	count *= stringGrid.countTrees(1, 7)
-	count *= stringGrid.countTrees(2, 1)
-
-	return count, nil
-}
+// func Part2(filename s)tring) (int, error) {
+// 	stringGrid, err := parseInput(filename)
+// 	if err != nil {
+// 		return 0, err
+// 	}
+// 	return count, nil
+// }
