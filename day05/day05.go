@@ -1,16 +1,55 @@
 package day05
 
 import (
-	"fmt"
 	"io/ioutil"
+	"strings"
 )
+
+func getSeatID(bpass string) int {
+	r := []int{}
+	for i := 0; i < 128; i++ {
+		r = append(r, i)
+	}
+	for i := 0; i < 7; i++ {
+		letter := string(bpass[i])
+		if letter == "F" {
+			r = r[:(len(r) / 2)]
+		} else {
+			r = r[(len(r) / 2):]
+		}
+	}
+	row := r[0]
+
+	c := []int{}
+	for i := 0; i < 8; i++ {
+		c = append(c, i)
+	}
+	for i := 7; i < 10; i++ {
+		letter := string(bpass[i])
+		if letter == "R" {
+			c = c[(len(c) / 2):]
+		} else {
+			c = c[:(len(c) / 2)]
+		}
+	}
+	column := c[0]
+
+	return row*8 + column
+}
 
 // Part1 ..
 func Part1(filename string) (int, error) {
 	body, _ := ioutil.ReadFile(filename)
-	fmt.Println(body)
+	input := strings.Split(string(body), "\n")
+	maxSeatID := 0
+	for _, val := range input {
+		seatID := getSeatID(val)
+		if seatID > maxSeatID {
+			maxSeatID = seatID
+		}
+	}
 
-	return 0, nil
+	return maxSeatID, nil
 }
 
 // // Part2 ...
