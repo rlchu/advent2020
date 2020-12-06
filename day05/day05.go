@@ -2,6 +2,7 @@ package day05
 
 import (
 	"io/ioutil"
+	"sort"
 	"strings"
 )
 
@@ -52,16 +53,24 @@ func Part1(filename string) (int, error) {
 	return maxSeatID, nil
 }
 
-// // Part2 ...
-// func Part2(filename string) (int, error) {
-// 	body, _ := ioutil.ReadFile(filename)
-// 	input := strings.Split(string(body), "\n\n")
-// 	validCount := 0
-// 	for _, passport := range input {
-// 		if checkForValidEntries(passport) {
-// 			validCount++
-// 		}
-// 	}
+// Part2 ...
+func Part2(filename string) (int, error) {
+	body, _ := ioutil.ReadFile(filename)
+	input := strings.Split(string(body), "\n")
+	seatIDs := []int{}
+	for _, val := range input {
+		seatID := getSeatID(val)
+		seatIDs = append(seatIDs, seatID)
+	}
 
-// 	return validCount, nil
-// }
+	sort.Ints(seatIDs)
+	yourSeat := -1
+	for i, val := range seatIDs {
+		if seatIDs[i+1] != val+1 {
+			yourSeat = val + 1
+			break
+		}
+	}
+
+	return yourSeat, nil
+}
