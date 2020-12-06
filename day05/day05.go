@@ -42,6 +42,7 @@ func getSeatID(bpass string) int {
 func Part1(filename string) (int, error) {
 	body, _ := ioutil.ReadFile(filename)
 	input := strings.Split(string(body), "\n")
+
 	maxSeatID := 0
 	for _, val := range input {
 		seatID := getSeatID(val)
@@ -57,6 +58,7 @@ func Part1(filename string) (int, error) {
 func Part2(filename string) (int, error) {
 	body, _ := ioutil.ReadFile(filename)
 	input := strings.Split(string(body), "\n")
+
 	seatIDs := []int{}
 	for _, val := range input {
 		seatID := getSeatID(val)
