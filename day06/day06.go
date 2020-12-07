@@ -20,11 +20,6 @@ func dedupe(str string) string {
 	return strings.Join(dedupedSplitString, "")
 }
 
-func frequencies(str string) string {
-
-	return ""
-}
-
 // Part1 counts the number of questions to which anyone answered "yes" and returns the sum across groups
 func Part1(filename string) (int, error) {
 	body, _ := ioutil.ReadFile(filename)
