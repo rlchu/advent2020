@@ -1,24 +1,68 @@
 package day06
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strings"
 )
 
-// Part1 finds maximum seat number
-func Part1(filename string) (int, error) {
-	body, _ := ioutil.ReadFile(filename)
-	input := strings.Split(string(body), "\n")
-	fmt.Println(input)
+func dedupe(str string) string {
+	letters := make(map[string]bool)
+	splitString := strings.Split(str, "")
+	dedupedSplitString := []string{}
 
-	return 0, nil
+	for _, entry := range splitString {
+		if _, value := letters[entry]; !value {
+			letters[entry] = true
+			dedupedSplitString = append(dedupedSplitString, entry)
+		}
+	}
+
+	return strings.Join(dedupedSplitString, "")
 }
 
-// Part2 finds seat number with gaps before and after
-// func Part2(filename string) (int, error) {
-// 	body, _ := ioutil.ReadFile(filename)
-// 	input := strings.Split(string(body), "\n")
+func frequencies(str string) string {
 
-// 	return yourSeat, nil
-// }
+	return ""
+}
+
+// Part1 counts the number of questions to which anyone answered "yes" and returns the sum across groups
+func Part1(filename string) (int, error) {
+	body, _ := ioutil.ReadFile(filename)
+	groups := strings.Split(string(body), "\n\n")
+	answer := 0
+
+	for _, group := range groups {
+		group = strings.Replace(group, " ", "", -1)
+		group = strings.Replace(group, "\n", "", -1)
+		answer += len(dedupe(group))
+	}
+
+	return answer, nil
+}
+
+// Part2 ..
+func Part2(filename string) (int, error) {
+	body, _ := ioutil.ReadFile(filename)
+	groups := strings.Split(string(body), "\n\n")
+	answer := 0
+
+	for _, group := range groups {
+		frequencies := make(map[string]int)
+		group = strings.Replace(group, " ", "", -1)
+		groupLength := len(strings.Split(group, "\n"))
+
+		for _, individualAnswers := range strings.Split(group, "\n") {
+			for _, letter := range strings.Split(individualAnswers, "") {
+				frequencies[letter]++
+			}
+		}
+
+		for _, v := range frequencies {
+			if v == groupLength {
+				answer++
+			}
+		}
+	}
+
+	return answer, nil
+}

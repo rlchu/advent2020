@@ -10,13 +10,13 @@ type testCase struct {
 }
 
 var testData01 = []testCase{
-	{"day06_example.txt", -1},
-	// {"day06_input.txt", 947},
+	{"day06_example.txt", 11},
+	{"day06_input.txt", 6714},
 }
 
 var testData02 = []testCase{
-	// {"day06_example.txt", -1},
-	// {"day06_input.txt", 636},
+	{"day06_example.txt", 6},
+	{"day06_input.txt", 3435},
 }
 
 func TestPart1(t *testing.T) {
@@ -31,14 +31,14 @@ func TestPart1(t *testing.T) {
 	}
 }
 
-// func TestPart2(t *testing.T) {
-// 	for _, val := range testData02 {
-// 		answer, err := Part2(val.fileName)
-// 		if err != nil {
-// 			t.Fatalf("%s", err)
-// 		}
-// 		if answer != val.want {
-// 			t.Fatalf("wanted: %v got: %v", val.want, answer)
-// 		}
-// 	}
-// }
+func TestPart2(t *testing.T) {
+	for _, val := range testData02 {
+		answer, err := Part2(val.fileName)
+		if err != nil {
+			t.Fatalf("%s", err)
+		}
+		if answer != val.want {
+			t.Fatalf("wanted: %v got: %v", val.want, answer)
+		}
+	}
+}
