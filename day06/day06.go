@@ -35,7 +35,7 @@ func Part1(filename string) (int, error) {
 	return answer, nil
 }
 
-// Part2 ..
+// Part2 counts the number of questions to which everyone answered "yes" and returns sum of those counts
 func Part2(filename string) (int, error) {
 	body, _ := ioutil.ReadFile(filename)
 	groups := strings.Split(string(body), "\n\n")
