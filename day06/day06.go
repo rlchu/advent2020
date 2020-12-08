@@ -43,10 +43,10 @@ func Part2(filename string) (int, error) {
 
 	for _, group := range groups {
 		frequencies := make(map[string]int)
-		group = strings.Replace(group, " ", "", -1)
-		groupLength := len(strings.Split(group, "\n"))
+		groupParsed := strings.Split(strings.Replace(group, " ", "", -1), "\n")
+		groupLength := len(groupParsed)
 
-		for _, individualAnswers := range strings.Split(group, "\n") {
+		for _, individualAnswers := range groupParsed {
 			for _, letter := range strings.Split(individualAnswers, "") {
 				frequencies[letter]++
 			}
