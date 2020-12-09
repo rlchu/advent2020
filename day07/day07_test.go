@@ -8,8 +8,8 @@ type testCase struct {
 }
 
 var testData01 = []testCase{
-	{"day07_example.txt", -1},
-	// {"day07_input.txt", 6714},
+	{"day07_example.txt", 4},
+	{"day07_input.txt", 185},
 }
 
 var testData02 = []testCase{
